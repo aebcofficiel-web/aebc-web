@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-light text-dark font-sans;
+  }
+  h1, h2, h3 {
+    @apply font-bold tracking-tight;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 md:px-6;
+  }
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all shadow-md;
+  }
+  .btn-secondary {
+    @apply bg-secondary text-dark px-6 py-2 rounded-lg hover:bg-opacity-90 transition-all;
+  }
+}
+
+.page-fade {
+  animation: pageFade 500ms ease;
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

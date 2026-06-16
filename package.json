@@ -1,0 +1,45 @@
+{
+  "name": "aebc-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@getbrevo/brevo": "^5.0.4",
+    "chart.js": "^4.5.1",
+    "clsx": "^2.1.1",
+    "emailjs-com": "^3.2.0",
+    "firebase": "^12.13.0",
+    "hls.js": "^1.6.16",
+    "lucide-react": "^1.16.0",
+    "nodemailer": "^8.0.10",
+    "pdfjs-dist": "^6.0.227",
+    "react": "^19.2.6",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.6",
+    "react-icons": "^5.6.0",
+    "react-player": "^3.4.0",
+    "react-router-dom": "^7.15.1",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.0.12"
+  }
+}

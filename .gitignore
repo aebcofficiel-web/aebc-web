@@ -1,0 +1,22 @@
+# Node
+node_modules/
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env
+.env
+.env.local
+
+# VSCode
+.vscode/
+
+# System
+.DS_Store
+
+# Local History (VS Code extension)
+.history/
