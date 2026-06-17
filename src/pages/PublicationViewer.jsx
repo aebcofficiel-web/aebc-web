@@ -1,92 +1,38 @@
-import React, { useEffect, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
-import * as pdfjsLib from "pdfjs-dist";
-import "pdfjs-dist/web/pdf_viewer.css";
+// src/pages/PublicationViewer.jsx
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
-
-export default function PublicationViewer() {
-  const { id } = useParams();
-  const fileUrl = id ? decodeURIComponent(id) : null;
-  const viewerRef = useRef(null);
-
-  useEffect(() => {
-    if (!fileUrl) return;
-
-    const container = viewerRef.current;
-    container.innerHTML = "";
-
-    const loadingTask = pdfjsLib.getDocument(fileUrl);
-
-    loadingTask.promise.then(pdf => {
-      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-        pdf.getPage(pageNum).then(page => {
-          const viewport = page.getViewport({ scale: 1.3 });
-          const canvas = document.createElement("canvas");
-          const context = canvas.getContext("2d");
-
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
-
-          container.appendChild(canvas);
-
-          page.render({
-            canvasContext: context,
-            viewport: viewport
-          });
-        });
-      }
-    });
-  }, [fileUrl]);
-
-  if (!fileUrl) {
-    return (
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-        <h1 className="text-3xl font-bold text-primary mb-4">Document introuvable</h1>
-        <Link
-          to="/publications"
-          className="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/90 transition"
-        >
-          ← Retour aux publications
-        </Link>
-      </div>
-    );
-  }
+const PublicationViewer = () => {
+  const { id } = useParams(); // Ici id contient l'URL encodée du PDF
+  const navigate = useNavigate();
+  const fileUrl = decodeURIComponent(id);
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10">
-
-      <div className="container-custom mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-primary tracking-wide">
-          Document AEBC
-        </h1>
-
-        <Link
-          to="/publications"
-          className="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/90 transition"
+    <div className="fixed inset-0 bg-gray-900 z-[9999] flex flex-col">
+      {/* BARRE DE CONTRÔLE SUPÉRIEURE */}
+      <div className="bg-white p-4 flex justify-between items-center shadow-lg">
+        <button 
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-gray-700 hover:text-primary font-bold transition"
         >
-          ← Retour
-        </Link>
+          <span className="text-xl">←</span> Retour à la bibliothèque
+        </button>
+        
+        <div className="text-sm font-medium text-gray-500 hidden md:block">
+          Visionneuse de documents AEBC
+        </div>
       </div>
 
-      <div className="container-custom bg-white rounded-xl shadow-lg p-6 border border-gray-200">
-
-        <div className="flex gap-4 mb-4">
-          <a
-            href={fileUrl}
-            download
-            className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-800 transition"
-          >
-            Télécharger
-          </a>
-        </div>
-
-        <div
-          ref={viewerRef}
-          className="w-full min-h-[80vh] overflow-auto bg-gray-50 p-4 rounded-lg"
-        ></div>
+      {/* ZONE DE LECTURE DU PDF */}
+      <div className="flex-grow bg-gray-800">
+        <iframe
+          src={`${fileUrl}#toolbar=1&navpanes=0`}
+          title="Lecteur PDF"
+          className="w-full h-full border-none"
+        />
       </div>
     </div>
   );
-}
+};
+
+export default PublicationViewer;

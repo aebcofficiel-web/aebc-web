@@ -1,187 +1,61 @@
+// src/pages/Publications.jsx
 import React, { useEffect, useState } from "react";
 import { db } from "../services/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import * as pdfjsLib from "pdfjs-dist";
-import "pdfjs-dist/web/pdf_viewer.css";
 
-// Configuration du worker PDF.js
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+const IMAGE_TEST = "https://aebc-cdn.b-cdn.net/aebc-publication/rapports/rapport-2025-sur-le-Bassin-du-Congo.png";
 
-// Génère une miniature à partir de la première page d'un PDF
-const generatePdfThumbnail = async (url) => {
-  try {
-    const loadingTask = pdfjsLib.getDocument(url);
-    const pdf = await loadingTask.promise;
-    const page = await pdf.getPage(1);
+const DOCUMENTS_STATIQUES = [
+  { id: "1", title: "Rapport Exécutif Bassin du Congo - Vol 1", fileUrl: "https://aebc-cdn.b-cdn.net/aebc-publication/rapports/2025-congo-basin-executive-summary-fr%20(1).pdf", type: "Rapport", cover: IMAGE_TEST },
+  { id: "2", title: "Rapport Exécutif Bassin du Congo - Vol 2", fileUrl: "https://aebc-cdn.b-cdn.net/aebc-publication/rapports/2025-congo-basin-executive-summary-fr%20(2).pdf", type: "Rapport", cover: IMAGE_TEST },
+  { id: "3", title: "Les Droits des Peuples Autochtones", fileUrl: "https://aebc-cdn.b-cdn.net/aebc-publication/rapports/Les_droits_des_peuples_autochtones_-_R%C3%A9publique_du_Congo.pdf", type: "Légal", cover: IMAGE_TEST },
+  { id: "4", title: "Décret Création Comité National (MAB)", fileUrl: "https://aebc-cdn.b-cdn.net/aebc-publication/rapports/Decret_creation_comite_national_homme_biosphere_MAB.pdf", type: "Décret", cover: IMAGE_TEST },
+  { id: "5", title: "État des lieux du Bassin du Congo", fileUrl: "https://aebc-cdn.b-cdn.net/aebc-publication/rapports/Page-BassinCongo-FR.pdf", type: "Étude", cover: IMAGE_TEST },
+];
 
-    const viewport = page.getViewport({ scale: 0.4 });
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
-
-    await page.render({ canvasContext: context, viewport }).promise;
-
-    return canvas.toDataURL("image/png");
-  } catch (e) {
-    console.error("Erreur miniature PDF :", e);
-    return null;
-  }
-};
-
-const Publications = () => {
+export default function Publications() {
   const [publications, setPublications] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [thumbnails, setThumbnails] = useState({});
 
-  // Charger les publications Firestore
   useEffect(() => {
-    const fetchPublications = async () => {
+    const fetchDocs = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "publications"));
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setPublications(data);
-      } catch (error) {
-        console.error("Erreur lors du chargement des publications :", error);
-      } finally {
-        setLoading(false);
-      }
+        const firestoreData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), cover: doc.data().cover || IMAGE_TEST }));
+        setPublications([...DOCUMENTS_STATIQUES, ...firestoreData]);
+      } catch (e) { setPublications(DOCUMENTS_STATIQUES); }
+      finally { setLoading(false); }
     };
-
-    fetchPublications();
+    fetchDocs();
   }, []);
 
-  // Générer les miniatures PDF
-  useEffect(() => {
-    const loadThumbnails = async () => {
-      const newThumbs = {};
-
-      for (const pub of publications) {
-        if (pub.fileUrl?.toLowerCase().endsWith(".pdf")) {
-          const thumb = await generatePdfThumbnail(pub.fileUrl);
-          newThumbs[pub.id] = thumb;
-        }
-      }
-
-      setThumbnails(newThumbs);
-    };
-
-    if (publications.length > 0) {
-      loadThumbnails();
-    }
-  }, [publications]);
-
   return (
-    <div>
-
-      {/* HERO */}
-      <div
-        className="relative w-full h-[410px] bg-cover bg-center flex items-center"
-        style={{
-          backgroundImage:
-            "url('https://aebc-cdn.b-cdn.net/biodiversite/nzaou.jpg')",
-        }}
-      >
+    <div className="bg-white min-h-screen">
+      <div className="relative w-full h-[380px] bg-cover bg-center flex items-center" style={{ backgroundImage: "url('https://aebc-cdn.b-cdn.net/biodiversite/nzaou.jpg')" }}>
         <div className="absolute inset-0 bg-black/60"></div>
-
-        <div className="relative container-custom">
-          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
-            Publications
-          </h1>
-
-          <p className="text-white text-lg leading-relaxed max-w-3xl drop-shadow">
-            Documents officiels, rapports, études, images, archives et ressources AEBC.
-          </p>
+        <div className="relative container-custom text-white">
+          <h1 className="text-4xl font-bold mb-4 uppercase tracking-tighter">Publications</h1>
+          <p className="text-lg opacity-90 max-w-2xl">Documents officiels et rapports stratégiques de l'AEBC.</p>
         </div>
       </div>
 
-      {/* LISTE */}
-      <section className="py-16 bg-white">
-        <div className="container-custom">
-          <h2 className="text-2xl font-bold text-primary mb-10 tracking-wide">
-            Documents disponibles
-          </h2>
-
-          {loading ? (
-            <p className="text-gray-600">Chargement des publications...</p>
-          ) : publications.length === 0 ? (
-            <p className="text-gray-600">Aucune publication disponible pour le moment.</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {publications.map((pub) => (
-                <div
-                  key={pub.id}
-                  className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-gray-50 p-6"
-                >
-
-                  {/* MINIATURE */}
-                  <div className="w-full h-64 bg-gray-200 rounded-lg overflow-hidden mb-4 flex items-center justify-center">
-                    {thumbnails[pub.id] ? (
-                      <img
-                        src={thumbnails[pub.id]}
-                        alt="Miniature PDF"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="text-gray-500 text-sm">
-                        Aperçu non disponible
-                      </div>
-                    )}
-                  </div>
-
-                  {/* TITRE */}
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                    {pub.title}
-                  </h3>
-
-                  <span className="text-sm text-primary font-medium">
-                    {pub.type || "Document"}
-                  </span>
-
-                  {/* DESCRIPTION */}
-                  <p className="text-gray-600 text-sm leading-relaxed mt-3 mb-4">
-                    {pub.description || "Document AEBC."}
-                  </p>
-
-                  {/* BOUTONS */}
-                  {pub.fileUrl && (
-                    <div className="flex gap-3 mt-4">
-
-                      {/* Ouvrir si PDF */}
-                      {pub.fileUrl.toLowerCase().endsWith(".pdf") && (
-                        <Link
-                          to={`/publication/view/${encodeURIComponent(pub.fileUrl)}`}
-                          className="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/90 transition"
-                        >
-                          Ouvrir
-                        </Link>
-                      )}
-
-                      {/* Télécharger */}
-                      <a
-                        href={pub.fileUrl}
-                        download
-                        className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-800 transition"
-                      >
-                        Télécharger
-                      </a>
-
-                    </div>
-                  )}
-                </div>
-              ))}
+      <section className="py-16">
+        <div className="container-custom grid grid-cols-1 md:grid-cols-3 gap-8">
+          {publications.map((pub) => (
+            <div key={pub.id} className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-gray-50 p-6 flex flex-col">
+              <div className="w-full h-72 bg-gray-200 rounded-lg overflow-hidden mb-5 border border-gray-100 flex items-center justify-center p-4">
+                <img src={pub.cover} alt={pub.title} className="max-w-full max-h-full object-contain hover:scale-105 transition duration-500 shadow-md" />
+              </div>
+              <span className="text-[10px] font-black text-primary uppercase mb-2 tracking-widest">{pub.type}</span>
+              <h3 className="text-lg font-bold text-gray-900 mb-6 leading-tight flex-grow">{pub.title}</h3>
+              <Link to={`/publication/view/${encodeURIComponent(pub.fileUrl)}`} className="w-full block text-center px-4 py-3 bg-primary text-white rounded-lg text-xs font-black uppercase tracking-widest hover:bg-primary/90 transition shadow-sm">
+                Consulter le document
+              </Link>
             </div>
-          )}
+          ))}
         </div>
       </section>
     </div>
   );
-};
-
-export default Publications;
+}

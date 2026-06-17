@@ -1,4 +1,4 @@
-// src_new/pages/Organisation.jsx
+// src/pages/Organisation.jsx
 import React from 'react'
 
 export default function Organisation() {
@@ -77,125 +77,136 @@ export default function Organisation() {
     },
   ]
 
+  const organes = [
+    { titre: "Assemblée Générale", desc: "Organe suprême de décision regroupant tous les membres actifs." },
+    { titre: "Conseil d’Administration", desc: "Supervise la stratégie et valide les programmes et budgets." },
+    { titre: "Bureau Exécutif", desc: "Met en œuvre les décisions et coordonne les activités." },
+    { titre: "Commission de contrôle", desc: "Assure le suivi, la transparence et l'évaluation des actions." },
+    { titre: "Représentations", desc: "Assurent la présence de l’AEBC dans les départements et territoires." },
+  ]
+
+  const principes = [
+    { titre: "Conservation", desc: "Protection rigoureuse de l’environnement et des ressources naturelles." },
+    { titre: "Engagement Public", desc: "Participation active aux politiques publiques du Bassin du Congo." },
+    { titre: "Coopération", desc: "Partenariat stratégique avec les ONG locales et internationales." },
+    { titre: "Transparence", desc: "Bonne gouvernance, responsabilité et intégrité financière." },
+    { titre: "Éco-responsabilité", desc: "Promotion d'une production et d'une consommation responsables." },
+    { titre: "Suivi Scientifique", desc: "Cartographie précise et suivi rigoureux des zones protégées." },
+  ]
+
   return (
     <div>
+      {/* HERO SECTION */}
+      <div
+        className="relative w-full h-[410px] bg-cover bg-center flex items-center"
+        style={{
+          backgroundImage: "url('https://aebc-cdn.b-cdn.net/biodiversite/geranimo-yKiLWMWquKE-unsplash.jpg')",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="relative container-custom">
+          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
+            Organisation
+          </h1>
+          <p className="text-white text-lg leading-relaxed max-w-3xl drop-shadow">
+            Découvrez la structure organisationnelle de l’AEBC, ses organes de gouvernance,
+            ses missions institutionnelles et les principes qui guident son action au service
+            du Bassin du Congo.
+          </p>
+        </div>
+      </div>
 
-      {/* En-tête /* HERO — Bannière pleine largeur avec image + texte intégré */}
-<div
-  className="relative w-full h-[410px] bg-cover bg-center flex items-center"
-  style={{
-    backgroundImage: "url('https://aebc-cdn.b-cdn.net/biodiversite/geranimo-yKiLWMWquKE-unsplash.jpg')",
-  }}
->
-  {/* Overlay sombre + vitrage fumé */}
-  <div className="absolute inset-0 bg-black/60"></div>
+      {/* SECTION NOS ORGANES (Format Cellules) */}
+      <section className="py-16 bg-white">
+        <div className="container-custom">
+          <h2 className="text-2xl font-bold text-primary mb-10 tracking-wide">
+            Nos organes de gouvernance
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {organes.map((organe, idx) => (
+              <div key={idx} className="flex gap-4 p-5 border border-gray-100 rounded-xl bg-gray-50/50 shadow-sm">
+                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></div>
+                <div>
+                  <h3 className="font-bold text-gray-900 leading-tight">{organe.titre}</h3>
+                  <p className="text-sm text-gray-600 mt-2 leading-relaxed">{organe.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-  {/* Texte directement dans la bannière */}
-  <div className="relative container-custom">
-    <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
-      Organisation
-    </h1>
-
-    <p className="text-white text-lg leading-relaxed max-w-3xl drop-shadow">
-      Découvrez la structure organisationnelle de l’AEBC, ses organes de gouvernance,
-      ses missions institutionnelles et les principes qui guident son action au service
-      de la protection de l’environnement et des communautés du Bassin du Congo.
-    </p>
-  </div>
-</div>
-
-
-      {/* Contenu principal */}
-      <section className="py-16">
-        <div className="container-custom space-y-12">
-
-          {/* Nos organes */}
-          <div>
-            <h2 className="text-3xl font-semibold text-primary">Nos organes</h2>
-
-            <ul className="list-disc list-inside mt-4 text-gray-700 space-y-2">
-
-              <li>
-                <span className="font-semibold">Assemblée Générale :</span>
-                {' '}organe suprême de décision regroupant tous les membres actifs.
-              </li>
-
-              <li>
-                <span className="font-semibold">Conseil d’Administration :</span>
-                {' '}supervise la stratégie et valide les programmes et budgets.
-              </li>
-
-              <li>
-                <span className="font-semibold">Bureau Exécutif :</span>
-                {' '}met en œuvre les décisions et coordonne les activités.
-              </li>
-
-              <li>
-                <span className="font-semibold">Commission de contrôle et d’évaluation :</span>
-                {' '}assure le suivi et la transparence des actions.
-              </li>
-
-              <li>
-                <span className="font-semibold">Représentations départementales :</span>
-                {' '}assurent la présence de l’AEBC dans les territoires.
-              </li>
-
-            </ul>
+      {/* SECTION BUREAU EXÉCUTIF (Format Cartes Accueil) */}
+      <section className="py-16 bg-gray-50">
+        <div className="container-custom">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-bold text-primary tracking-wide">
+              Bureau Exécutif
+            </h2>
+            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+              Voici la composition de l'équipe dirigeante et des responsables thématiques de l’AEBC.
+            </p>
           </div>
 
-          {/* Organigramme */}
-          <div>
-            <h2 className="text-3xl font-semibold text-primary">Organigramme</h2>
-
-            <p className="mt-4 text-gray-700 leading-relaxed">
-              Voici la composition du Bureau Exécutif et des responsables thématiques de l’AEBC.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-              {membres.map((membre, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-lg transition"
-                >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {membres.map((membre, index) => (
+              <div
+                key={index}
+                className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white p-6 flex flex-col items-center text-center"
+              >
+                {/* Photo de profil */}
+                <div className="w-32 h-32 mb-6 relative">
+                  <div className="absolute inset-0 bg-primary/10 rounded-full scale-110"></div>
                   <img
                     src={membre.photo}
                     alt={membre.nom}
-                    className="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-primary/20"
+                    className="w-full h-full rounded-full object-cover border-4 border-white shadow-sm relative z-10"
                   />
+                </div>
 
-                  {/* Nom */}
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {membre.nom}
+                {/* Nom & Poste */}
+                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                  {membre.nom}
+                </h3>
+                <span className="text-sm px-3 py-1 bg-primary/10 text-primary font-semibold rounded-full mb-4">
+                  {membre.poste}
+                </span>
+
+                {/* Rôle */}
+                <p className="text-gray-600 text-sm leading-relaxed flex-grow">
+                  {membre.role}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION PRINCIPES (Format Cellules - Identique aux Organes) */}
+      <section className="py-16 bg-white">
+        <div className="container-custom">
+          <h2 className="text-2xl font-bold text-primary mb-10 tracking-wide">
+            Nos principes de gouvernance
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {principes.map((principe, i) => (
+              <div 
+                key={i} 
+                className="flex gap-4 p-5 border border-gray-100 rounded-xl bg-gray-50/50 shadow-sm"
+              >
+                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></div>
+                <div>
+                  <h3 className="font-bold text-gray-900 leading-tight">
+                    {principe.titre}
                   </h3>
-
-                  {/* Poste */}
-                  <p className="text-primary font-medium">
-                    {membre.poste}
-                  </p>
-
-                  {/* Rôle */}
-                  <p className="text-gray-600 mt-2 text-sm">
-                    {membre.role}
+                  <p className="text-sm text-gray-600 mt-2 leading-relaxed">
+                    {principe.desc}
                   </p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-
-          {/* Principes de gouvernance */}
-          <div>
-            <h2 className="text-3xl font-semibold text-primary">Principes de gouvernance</h2>
-
-            <ul className="list-disc list-inside mt-4 text-gray-700 space-y-2">
-              <li>Protection de l’environnement et des ressources naturelles.</li>
-              <li>Participation active aux politiques publiques du Bassin du Congo.</li>
-              <li>Partenariat et coopération avec les ONG locales et internationales.</li>
-              <li>Bonne gouvernance, transparence et responsabilité.</li>
-              <li>Production et consommation responsables.</li>
-              <li>Cartographie et suivi des zones vertes.</li>
-            </ul>
-          </div>
-
         </div>
       </section>
     </div>
