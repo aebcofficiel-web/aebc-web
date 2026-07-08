@@ -1,6 +1,9 @@
+// src/components/layout/Navbar.jsx
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
+// Importation du composant SocialLinks (ajustez le chemin selon votre structure de dossiers)
+import SocialLinks from '../sections/SocialLinks' 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,12 +23,13 @@ const Navbar = () => {
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="container-custom py-3 flex items-center justify-between">
         
-        {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2">
+        {/* Logo - shrink-0 empêche le logo de se faire écraser si l'espace manque */}
+        <Link to="/" className="flex items-center space-x-2 shrink-0">
           <img
-            src="https://aebc-cdn.b-cdn.net/Logo-Banni%C3%A8re/img-AEBC-logo_rogna-01.png"
+            src="https://aebc-cdn.b-cdn.net/Logo-Banni%C3%A8re/lg-G-aebc-02.png"
             alt="AEBC Logo"
-            className="h-[55px] w-auto"
+            className="h-[55px] w-auto object-contain shrink-0"
+            style={{ minWidth: '55px' }} // Évite que la largeur tombe à 0px au chargement initial
           />
         </Link>
 
@@ -48,14 +52,14 @@ const Navbar = () => {
           {/* Bouton Faire un don */}
           <Link
             to="/don"
-            className="bg-primary text-white px-4 py-2 rounded-lg shadow-md hover:bg-primary/90 transition"
+            className="bg-primary text-white px-4 py-2 rounded-lg shadow-md hover:bg-primary/90 transition shrink-0"
           >
             Faire un don
           </Link>
         </div>
 
         {/* Mobile button */}
-        <button className="lg:hidden" onClick={() => setIsOpen(!isOpen)}>
+        <button className="lg:hidden p-2" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
@@ -86,6 +90,11 @@ const Navbar = () => {
           >
             Faire un don
           </Link>
+
+          {/* Intégration de SocialLinks en bas du menu mobile */}
+          <div className="pt-4 border-t border-gray-100 flex justify-center">
+            <SocialLinks />
+          </div>
         </div>
       )}
     </nav>

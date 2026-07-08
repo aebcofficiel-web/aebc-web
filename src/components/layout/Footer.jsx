@@ -19,9 +19,9 @@ const Footer = () => {
           {/* Colonne 1 — Présentation */}
           <div className="space-y-4">
             <img
-              src="https://aebc-cdn.b-cdn.net/Logo-Banni%C3%A8re/Logo-AEBC-bkg-vert-rogner.png"
+              src="https://aebc-cdn.b-cdn.net/Logo-Banni%C3%A8re/lg-G-aebc-02.png"
               alt="AEBC"
-              className="h-[65px] w-auto mb-3"
+              className="h-[55px] w-auto mb-3"
             />
             <p className="text-sm text-gray-300 leading-relaxed">
               L’Association pour l’Environnement du Bassin du Congo œuvre sans relâche pour la préservation du deuxième poumon mondial, unissant les nations pour un avenir vert.

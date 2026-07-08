@@ -1,3 +1,4 @@
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import ScrollToTop from "./components/layout/ScrollToTop"; 
@@ -10,6 +11,7 @@ import Organisation from "./pages/Organisation";
 import Actualites from "./pages/Actualites";
 import ActualiteDetail from "./pages/ActualiteDetail";
 import Projets from "./pages/Projets";
+import ProjetDetail from "./pages/ProjetDetail"; 
 import Galerie from "./pages/Galerie";
 import Publications from "./pages/Publications";
 import PublicationViewer from "./pages/PublicationViewer";
@@ -25,13 +27,11 @@ import NotreMission from "./pages/NotreMission";
 function App() {
   return (
     <Router>
-      {/* Logique : Remonte en haut de page lors d'un changement de route */}
       <ScrollToTopOnNavigation />
-      
-      {/* UI : Bouton flottant "Retour en haut" */}
       <ScrollToTop />
 
       <Routes>
+        {/* Toutes les pages ci-dessous, y compris le lecteur de PDF, partagent le menu normal du site */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Accueil />} />
           <Route path="/a-propos" element={<APropos />} />
@@ -39,9 +39,10 @@ function App() {
           <Route path="/actualites" element={<Actualites />} />
           <Route path="/actualites/:id" element={<ActualiteDetail />} />
           <Route path="/projets" element={<Projets />} />
+          <Route path="/projets/:id" element={<ProjetDetail />} />
           <Route path="/galerie" element={<Galerie />} />
           <Route path="/publications" element={<Publications />} />
-          <Route path="/publication/view/:id" element={<PublicationViewer />} />
+          <Route path="/publication/view/:id" element={<PublicationViewer />} /> {/* Route ré-intégrée ici */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/don" element={<Don />} />
           <Route path="/don-mtn" element={<DonMTN />} />

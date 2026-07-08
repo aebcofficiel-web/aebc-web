@@ -10,7 +10,9 @@ export default function ActualiteDetail() {
     return (
       <div className="container-custom py-16 text-center">
         <h2 className="text-2xl font-bold text-primary">Actualité introuvable</h2>
-        <Link to="/actualites" className="text-primary underline mt-4 inline-block">Retour aux actualités</Link>
+        <Link to="/actualites" className="text-primary underline mt-4 inline-block">
+          Retour aux actualités
+        </Link>
       </div>
     )
   }
@@ -28,13 +30,22 @@ export default function ActualiteDetail() {
         <p className="text-primary font-semibold mt-4">{actu.date}</p>
       </div>
 
-      {/* Image Large */}
+      {/* Image Large - Cadre fixe avec arrière-plan immersif flouté */}
       <div className="container-custom">
-        <img
-          src={actu.image}
-          alt={actu.titre}
-          className="w-full h-[300px] md:h-[500px] object-cover rounded-2xl shadow-lg"
-        />
+        <div className="relative w-full h-[300px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg bg-black flex items-center justify-center">
+          {/* Arrière-plan flouté qui remplit la case */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center blur-xl opacity-40 scale-110 pointer-events-none"
+            style={{ backgroundImage: `url(${actu.image})` }}
+          ></div>
+          
+          {/* Image principale visible en entier */}
+          <img
+            src={actu.image}
+            alt={actu.titre}
+            className="relative z-10 max-w-full max-h-full object-contain"
+          />
+        </div>
       </div>
 
       {/* Contenu de l'article */}
