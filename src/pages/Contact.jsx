@@ -11,7 +11,7 @@ const Contact = () => {
       <div
         className="relative w-full h-[410px] bg-cover bg-center flex items-center"
         style={{
-          backgroundImage: "url('https://aebc-cdn.b-cdn.net/biodiversite/alyssa-elliott-YLXES4mq60o-unsplash.jpg')",
+          backgroundImage: "url('https://aebc-cdn.b-cdn.net/biodiversite/steve-c-6yEql50L05M-unsplash.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-black/60"></div>

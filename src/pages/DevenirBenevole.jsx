@@ -65,7 +65,7 @@ const DevenirBenevole = () => {
       {/* BANNIÈRE STANDARDISÉE */}
       <div
         className="relative w-full h-[410px] bg-cover bg-center flex items-center"
-        style={{ backgroundImage: "url('https://aebc-cdn.b-cdn.net/biodiversite/heather-wilde-fpZRaTl7unI-unsplash.jpg')" }}
+        style={{ backgroundImage: "url('https://aebc-cdn.b-cdn.net/biodiversite/hadil-hasan-t21e0_eRQW8-unsplash.jpg')" }}
       >
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative container-custom">
