@@ -7,13 +7,13 @@ export default function Organisation() {
       nom: 'Adéline Mianguila',
       poste: 'Président(e)',
       role: 'Direction générale, représentation officielle et supervision stratégique.',
-      photo: '',
+      photo: 'https://aebc-cdn.b-cdn.net/organisation/user-placeholder.png', // Fallback si vide
     },
     {
       nom: 'Jean Bilongo',
       poste: 'Vice-président(e)',
       role: 'Appui à la présidence, coordination des pôles et représentation secondaire.',
-      photo: '',
+      photo: 'https://aebc-cdn.b-cdn.net/organisation/user-placeholder.png',
     },
     {
       nom: 'Fustel Loueko',
@@ -37,7 +37,7 @@ export default function Organisation() {
       nom: 'Leandre Aubiege Lekeleson',
       poste: 'Responsable Communication & NTIC',
       role: 'Gestion de la communication interne et externe, réseaux sociaux et outils numériques.',
-      photo: '',
+      photo: 'https://aebc-cdn.b-cdn.net/organisation/user-placeholder.png',
     },
     {
       nom: 'David Moukassa',
@@ -55,7 +55,7 @@ export default function Organisation() {
       nom: 'Michel Kodia',
       poste: 'Responsable Finances & Administration',
       role: 'Gestion des finances, comptabilité et rapports financiers.',
-      photo: '',
+      photo: 'https://aebc-cdn.b-cdn.net/organisation/user-placeholder.png',
     },
     {
       nom: 'Rosine Binsamou',
@@ -95,7 +95,7 @@ export default function Organisation() {
   ]
 
   return (
-    <div>
+    <div className="transition-colors duration-300">
       {/* HERO SECTION */}
       <div
         className="relative w-full h-[410px] bg-cover bg-center flex items-center"
@@ -105,30 +105,36 @@ export default function Organisation() {
       >
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative container-custom">
-          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             Organisation
           </h1>
           <p className="text-white text-lg leading-relaxed max-w-3xl drop-shadow">
-            Découvrez la structure organisationnelle de l’AEBC, ses organes de gouvernance,
-            ses missions institutionnelles et les principes qui guident son action au service
-            du Bassin du Congo.
+            Découvrez la structure organisationnelle de l’AEBC, ses organes de gouvernance et les principes qui encadrent son action pour la préservation du Bassin du Congo. Une architecture institutionnelle fondée sur la transparence, la coopération et l’engagement environnemental.
           </p>
         </div>
       </div>
 
-      {/* SECTION NOS ORGANES (Format Cellules) */}
-      <section className="py-16 bg-white">
+      {/* SECTION NOS ORGANES */}
+      <section className="py-16 bg-white dark:bg-zinc-950 border-b border-gray-100 dark:border-zinc-900 transition-colors duration-300">
         <div className="container-custom">
-          <h2 className="text-2xl font-bold text-primary mb-10 tracking-wide">
+          <h2 className="text-2xl font-bold text-primary dark:text-secondary mb-10 tracking-wide">
             Nos organes de gouvernance
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {organes.map((organe, idx) => (
-              <div key={idx} className="flex gap-4 p-5 border border-gray-100 rounded-xl bg-gray-50/50 shadow-sm">
-                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></div>
+              <div 
+                key={idx} 
+                // bg-gray-50 et border-gray-200 ➔ dark:bg-[#122527] et dark:border-[#1d3a3d] (comme Actualités)
+                className="flex gap-4 p-5 border border-gray-200 dark:border-[#1d3a3d] rounded-xl bg-gray-50 dark:bg-[#122527] shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-secondary flex-shrink-0"></div>
                 <div>
-                  <h3 className="font-bold text-gray-900 leading-tight">{organe.titre}</h3>
-                  <p className="text-sm text-gray-600 mt-2 leading-relaxed">{organe.desc}</p>
+                  <h3 className="font-bold text-gray-900 dark:text-gray-100 leading-tight">
+                    {organe.titre}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
+                    {organe.desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -136,14 +142,14 @@ export default function Organisation() {
         </div>
       </section>
 
-      {/* SECTION BUREAU EXÉCUTIF (Format Cartes Accueil) */}
-      <section className="py-16 bg-gray-50">
+      {/* SECTION BUREAU EXÉCUTIF */}
+      <section className="py-16 bg-gray-50 dark:bg-zinc-950 border-b border-gray-150 dark:border-zinc-900 transition-colors duration-300">
         <div className="container-custom">
           <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-primary tracking-wide">
+            <h2 className="text-2xl font-bold text-primary dark:text-secondary tracking-wide">
               Bureau Exécutif
             </h2>
-            <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
               Voici la composition de l'équipe dirigeante et des responsables thématiques de l’AEBC.
             </p>
           </div>
@@ -152,28 +158,30 @@ export default function Organisation() {
             {membres.map((membre, index) => (
               <div
                 key={index}
-                className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-white p-6 flex flex-col items-center text-center"
+                // bg-white ➔ dark:bg-[#122527] (comme Actualités)
+                // border-gray-200 ➔ dark:border-[#1d3a3d] (comme Actualités)
+                className="border border-gray-200 dark:border-[#1d3a3d] rounded-xl shadow-sm hover:shadow-md transition-all duration-300 bg-white dark:bg-[#122527] p-6 flex flex-col items-center text-center"
               >
                 {/* Photo de profil */}
                 <div className="w-32 h-32 mb-6 relative">
-                  <div className="absolute inset-0 bg-primary/10 rounded-full scale-110"></div>
+                  <div className="absolute inset-0 bg-primary/10 dark:bg-secondary/15 rounded-full scale-110"></div>
                   <img
-                    src={membre.photo}
+                    src={membre.photo || "https://aebc-cdn.b-cdn.net/organisation/user-placeholder.png"}
                     alt={membre.nom}
-                    className="w-full h-full rounded-full object-cover border-4 border-white shadow-sm relative z-10"
+                    className="w-full h-full rounded-full object-cover border-4 border-white dark:border-[#1d3a3d] shadow-sm relative z-10"
                   />
                 </div>
 
                 {/* Nom & Poste */}
-                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
                   {membre.nom}
                 </h3>
-                <span className="text-sm px-3 py-1 bg-primary/10 text-primary font-semibold rounded-full mb-4">
+                <span className="text-sm px-3 py-1 bg-primary/10 dark:bg-secondary/20 text-primary dark:text-secondary font-semibold rounded-full mb-4">
                   {membre.poste}
                 </span>
 
                 {/* Rôle */}
-                <p className="text-gray-600 text-sm leading-relaxed flex-grow">
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed flex-grow">
                   {membre.role}
                 </p>
               </div>
@@ -182,10 +190,10 @@ export default function Organisation() {
         </div>
       </section>
 
-      {/* SECTION PRINCIPES (Format Cellules - Identique aux Organes) */}
-      <section className="py-16 bg-white">
+      {/* SECTION PRINCIPES */}
+      <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-300">
         <div className="container-custom">
-          <h2 className="text-2xl font-bold text-primary mb-10 tracking-wide">
+          <h2 className="text-2xl font-bold text-primary dark:text-secondary mb-10 tracking-wide">
             Nos principes de gouvernance
           </h2>
           
@@ -193,14 +201,16 @@ export default function Organisation() {
             {principes.map((principe, i) => (
               <div 
                 key={i} 
-                className="flex gap-4 p-5 border border-gray-100 rounded-xl bg-gray-50/50 shadow-sm"
+                // bg-gray-50 ➔ dark:bg-[#122527] (comme Actualités)
+                // border-gray-200 ➔ dark:border-[#1d3a3d] (comme Actualités)
+                className="flex gap-4 p-5 border border-gray-200 dark:border-[#1d3a3d] rounded-xl bg-gray-50 dark:bg-[#122527] shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"></div>
+                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary dark:bg-secondary flex-shrink-0"></div>
                 <div>
-                  <h3 className="font-bold text-gray-900 leading-tight">
+                  <h3 className="font-bold text-gray-900 dark:text-gray-100 leading-tight">
                     {principe.titre}
                   </h3>
-                  <p className="text-sm text-gray-600 mt-2 leading-relaxed">
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed">
                     {principe.desc}
                   </p>
                 </div>

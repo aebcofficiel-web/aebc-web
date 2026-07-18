@@ -24,7 +24,7 @@ export default function Actualites() {
   };
 
   return (
-    <div>
+    <div className="transition-colors duration-300">
       {/* Animation */}
       <style>{`
         @keyframes fadeIn {
@@ -45,7 +45,7 @@ export default function Actualites() {
         <div className="absolute inset-0 bg-black/60"></div>
 
         <div className="relative container-custom text-white">
-          <h1 className="text-4xl font-bold mb-4 uppercase">Actualités</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">Actualités</h1>
 
           <p className="text-lg opacity-90 max-w-3xl leading-relaxed">
             Suivez l’évolution des initiatives, projets, réformes et actions
@@ -61,7 +61,7 @@ export default function Actualites() {
       <div id="actualites-grid-start" className="scroll-mt-20"></div>
 
       {/* GRID */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-300">
         <div className="container-custom">
           <div
             key={currentPage}
@@ -70,9 +70,10 @@ export default function Actualites() {
             {currentActualites.map((actu) => (
               <div
                 key={actu.id}
-                className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-gray-50 p-6 flex flex-col"
+                // Contours fins de la même famille de couleur que les cartes (dark:border-[#1d3a3d]) sur fond #122527
+                className="border border-gray-200 dark:border-[#1d3a3d] rounded-xl shadow-sm hover:shadow-md transition-all duration-300 bg-gray-50 dark:bg-[#122527] p-6 flex flex-col"
               >
-                <div className="w-full h-48 rounded-lg overflow-hidden mb-4">
+                <div className="w-full h-48 rounded-lg overflow-hidden mb-4 bg-gray-200 dark:bg-zinc-950">
                   <img
                     src={actu.image}
                     alt={actu.titre}
@@ -80,21 +81,21 @@ export default function Actualites() {
                   />
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-1 line-clamp-2">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1 line-clamp-2">
                   {actu.titre}
                 </h3>
 
-                <span className="text-sm text-primary font-medium">
+                <span className="text-sm text-primary dark:text-secondary font-medium">
                   {actu.date}
                 </span>
 
-                <p className="text-gray-600 text-sm leading-relaxed mt-3 mb-6 flex-grow">
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mt-3 mb-6 flex-grow">
                   {actu.resume}
                 </p>
 
                 <Link
                   to={`/actualites/${actu.id}`}
-                  className="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/90 transition text-sm font-bold w-max"
+                  className="px-4 py-2 bg-primary dark:bg-secondary text-white dark:text-dark rounded-lg shadow hover:bg-primary-light dark:hover:bg-secondary/90 transition text-sm font-bold w-max"
                 >
                   Lire plus
                 </Link>
@@ -104,15 +105,15 @@ export default function Actualites() {
 
           {/* PAGINATION */}
           {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2 mt-16 border-t border-gray-100 pt-8">
+            <div className="flex justify-center items-center gap-2 mt-16 border-t border-gray-100 dark:border-zinc-900 pt-8">
               {/* Prev */}
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
                 className={`px-4 py-2 border rounded-lg text-sm font-semibold transition ${
                   currentPage === 1
-                    ? "border-gray-100 text-gray-300 cursor-not-allowed bg-gray-50"
-                    : "border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-primary hover:border-primary/30"
+                    ? "border-gray-100 dark:border-zinc-800 text-gray-300 dark:text-zinc-700 cursor-not-allowed bg-gray-50 dark:bg-zinc-900/50"
+                    : "border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-zinc-850 hover:text-primary dark:hover:text-secondary hover:border-primary/30 dark:hover:border-secondary/30"
                 }`}
               >
                 Précédent
@@ -126,8 +127,8 @@ export default function Actualites() {
                     onClick={() => handlePageChange(page)}
                     className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-bold transition ${
                       currentPage === page
-                        ? "bg-primary text-white shadow-md shadow-primary/20"
-                        : "border border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-primary hover:border-primary/30"
+                        ? "bg-primary dark:bg-secondary text-white dark:text-dark shadow-md shadow-primary/20"
+                        : "border border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-zinc-850 hover:text-primary dark:hover:text-secondary hover:border-primary/30 dark:hover:border-secondary/30"
                     }`}
                   >
                     {page}
@@ -141,8 +142,8 @@ export default function Actualites() {
                 disabled={currentPage === totalPages}
                 className={`px-4 py-2 border rounded-lg text-sm font-semibold transition ${
                   currentPage === totalPages
-                    ? "border-gray-100 text-gray-300 cursor-not-allowed bg-gray-50"
-                    : "border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-primary hover:border-primary/30"
+                    ? "border-gray-100 dark:border-zinc-800 text-gray-300 dark:text-zinc-700 cursor-not-allowed bg-gray-50 dark:bg-zinc-900/50"
+                    : "border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-zinc-850 hover:text-primary dark:hover:text-secondary hover:border-primary/30 dark:hover:border-secondary/30"
                 }`}
               >
                 Suivant

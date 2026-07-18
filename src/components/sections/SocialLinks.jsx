@@ -30,7 +30,12 @@ const SocialLinks = ({ showContact = false, showFooterLinkedin = false }) => {
           aria-label={social.name}
           className="transition-transform duration-300 transform hover:scale-125 active:scale-95"
           style={{ color: AEBC_GREEN }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = social.color)}
+          onMouseEnter={(e) => {
+            // Détecte en temps réel si le mode sombre est actif
+            const isDark = document.documentElement.classList.contains('dark');
+            // Si c'est X en mode sombre, on applique un gris moyen (#9ca3af), sinon sa couleur d'origine
+            e.currentTarget.style.color = (social.color === '#000000' && isDark) ? '#9ca3af' : social.color;
+          }}
           onMouseLeave={(e) => (e.currentTarget.style.color = AEBC_GREEN)}
         >
           <social.icon size={26} />
@@ -50,7 +55,6 @@ const SocialLinks = ({ showContact = false, showFooterLinkedin = false }) => {
           <FaLinkedin size={26} />
         </a>
       )}
-      {/* ... reste du code identique pour showContact */}
     </div>
   )
 }

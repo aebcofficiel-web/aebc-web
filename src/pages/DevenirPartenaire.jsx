@@ -21,7 +21,7 @@ const raisons = [
 
 export default function DevenirPartenaire() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white dark:bg-zinc-950 min-h-screen transition-colors duration-300">
 
       {/* BANNIÈRE */}
       <div
@@ -34,7 +34,7 @@ export default function DevenirPartenaire() {
             Devenir Partenaire
           </h1>
           <p className="text-white text-lg max-w-2xl opacity-90 leading-relaxed">
-            Unissons nos forces pour la sauvegarde du deuxième poumon vert mondial.
+            Devenez partenaire et engagez-vous aux côtés des acteurs mobilisés pour sauvegarder le deuxième poumon vert mondial.
           </p>
         </div>
       </div>
@@ -44,10 +44,10 @@ export default function DevenirPartenaire() {
         <div className="container-custom grid lg:grid-cols-2 gap-12 items-start">
 
           <div>
-            <h2 className="text-2xl font-black text-[#305c31] uppercase tracking-widest mb-6">
+            <h2 className="text-2xl font-black text-[#305c31] dark:text-secondary uppercase tracking-widest mb-6">
               Pourquoi nous rejoindre ?
             </h2>
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
               Devenir partenaire de l’AEBC, c’est s’associer à une vision globale de conservation.
               Votre soutien permet de financer des actions concrètes et des programmes de sensibilisation.
             </p>
@@ -55,10 +55,14 @@ export default function DevenirPartenaire() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {raisons.map((r, i) => (
-              <div key={i} className="p-5 bg-gray-50 border border-gray-100 rounded-xl shadow-sm">
-                <div className="w-2 h-2 rounded-full bg-[#305c31] mb-3"></div>
-                <h4 className="font-bold text-gray-900 uppercase text-[11px] tracking-wider mb-2">{r.titre}</h4>
-                <p className="text-xs text-gray-500 leading-relaxed">{r.desc}</p>
+              <div 
+                key={i} 
+                // bg-gray-50 ➔ dark:bg-[#122527] et border-gray-100 ➔ dark:border-[#1d3a3d] (comme les autres pages)
+                className="p-5 bg-gray-50 dark:bg-[#122527] border border-gray-100 dark:border-[#1d3a3d] rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <div className="w-2 h-2 rounded-full bg-[#305c31] dark:bg-secondary mb-3"></div>
+                <h4 className="font-bold text-gray-900 dark:text-gray-100 uppercase text-[11px] tracking-wider mb-2">{r.titre}</h4>
+                <p className="text-xs text-gray-500 dark:text-gray-300 leading-relaxed">{r.desc}</p>
               </div>
             ))}
           </div>
@@ -66,25 +70,25 @@ export default function DevenirPartenaire() {
         </div>
       </section>
 
-      {/* PARTENAIRES */}
-      <section className="py-20 bg-gray-50 border-t border-gray-100">
+      {/* PARTENAIRES (Raccord d'arrière-plan de bloc en mode sombre) */}
+      <section className="py-20 bg-gray-50 dark:bg-zinc-900/30 border-t border-gray-100 dark:border-zinc-900 transition-colors duration-300">
         <div className="container-custom text-center">
 
-          {/* Nouveau titre + description */}
-          <h2 className="text-2xl font-black text-[#305c31] uppercase tracking-tight">
+          {/* Titre */}
+          <h2 className="text-2xl font-black text-[#305c31] dark:text-secondary uppercase tracking-tight">
             Nos partenaires
           </h2>
 
-          <p className="text-gray-500 text-sm mt-2">
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">
             Ils nous accompagnent
           </p>
 
-          {/* Grille logos */}
+          {/* Grille logos (Les boîtes restent blanches pour une insertion parfaite des fichiers logos) */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10 max-w-5xl mx-auto mt-16">
             {partners.map((p, i) => (
               <div
                 key={i}
-                className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center aspect-square"
+                className="bg-white dark:bg-white border border-gray-200 dark:border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center aspect-square"
               >
                 <img
                   src={p.url}
@@ -102,21 +106,21 @@ export default function DevenirPartenaire() {
       {/* CTA */}
       <section className="py-20 text-center">
         <div className="container-custom">
-          <h2 className="text-3xl font-bold text-[#305c31] mb-10 tracking-tight">
+          <h2 className="text-3xl font-bold text-[#305c31] dark:text-secondary mb-10 tracking-tight">
             Prêt à bâtir une collaboration ?
           </h2>
 
           <div className="flex flex-col sm:flex-row justify-center gap-6">
             <Link 
               to="/contact" 
-              className="px-10 py-4 bg-[#305c31] text-white font-bold uppercase text-xs tracking-widest rounded-lg shadow-lg hover:opacity-90 transition"
+              className="px-10 py-4 bg-[#305c31] text-white font-bold uppercase text-xs tracking-widest rounded-lg shadow-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 active:scale-95 text-center"
             >
               Proposer un partenariat
             </Link>
 
             <Link 
               to="/notre-mission" 
-              className="px-10 py-4 bg-[#a6c76c] text-[#305c31] font-bold uppercase text-xs tracking-widest rounded-lg shadow-sm hover:opacity-90 transition"
+              className="px-10 py-4 bg-[#a6c76c] text-[#305c31] font-bold uppercase text-xs tracking-widest rounded-lg shadow-sm hover:opacity-90 transition-all duration-300 transform hover:scale-105 active:scale-95 text-center"
             >
               Notre Mission
             </Link>

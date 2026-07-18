@@ -69,11 +69,11 @@ const DevenirBenevole = () => {
       >
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative container-custom">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg uppercase tracking-tighter">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             Devenir Bénévole
           </h1>
           <p className="text-white text-lg leading-relaxed max-w-3xl drop-shadow opacity-90">
-            Engagez-vous pour la protection du Bassin du Congo et contribuez activement à la préservation de notre patrimoine naturel.
+            Engagez-vous pour la protection du Bassin du Congo et contribuez activement à la préservation de ses écosystèmes. Rejoignez une communauté de bénévoles mobilisés pour l’environnement et le développement durable.
           </p>
         </div>
       </div>

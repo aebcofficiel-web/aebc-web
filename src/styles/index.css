@@ -7,10 +7,11 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-light text-dark font-sans;
+    /* bg-light text-dark en mode clair ➔ bg-zinc-950 text-gray-100 en mode sombre avec transition douce */
+    @apply bg-light text-dark font-sans dark:bg-zinc-950 dark:text-gray-100 transition-colors duration-300;
   }
   h1, h2, h3 {
-    @apply font-bold tracking-tight;
+    @apply font-bold tracking-tight dark:text-gray-100 transition-colors duration-300;
   }
   h1 {
     @apply text-4xl md:text-5xl;
@@ -48,4 +49,33 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* =========================================================================
+   MASQUAGE ET CONFIGURATION DU LECTEUR DE TRADUCTION GOOGLE TRANSLATE
+   ========================================================================= */
+
+/* Masque de manière définitive la barre de traduction Google en haut de l'écran */
+iframe.skiptranslate, 
+.goog-te-banner-frame,
+.goog-te-banner,
+#goog-gt-tt {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Évite que le haut de votre site ou votre menu de navigation soit poussé vers le bas par l'API Google */
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+/* Masque le widget technique d'initialisation */
+#google_translate_element {
+  display: none !important;
+}
+
+/* Masque les info-bulles et fenêtres popups de survol natives de traduction de Google */
+.goog-te-balloon-frame {
+  display: none !important;
 }

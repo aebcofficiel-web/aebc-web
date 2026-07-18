@@ -40,6 +40,13 @@ const DOCUMENTS_STATIQUES = [
     fileUrl: "https://aebc-cdn.b-cdn.net/aebc-publication/rapports/CG-Rapport-d-Evaluation-Access-EauPotable.pdf", 
     type: "Rapport",
     date: "21 décembre 2023"
+  },
+  {
+    id: "6",
+    title: "Mémorandum d'Entente pour la création du F2BC",
+    fileUrl: "https://aebc-cdn.b-cdn.net/aebc-publication/MEMORANDUM-F2BC.pdf",
+    type: "Mémorandum",
+    date: "17 mars 1999 - 5 février 2005"
   }
 ];
 
@@ -82,8 +89,8 @@ export default function PublicationViewer() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-gray-500 font-medium">Chargement du document...</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-zinc-950 transition-colors duration-300">
+        <p className="text-gray-500 dark:text-gray-400 font-medium">Chargement du document...</p>
       </div>
     );
   }
@@ -92,9 +99,9 @@ export default function PublicationViewer() {
   if (!pub) {
     return (
       <div className="container-custom py-16 text-center">
-        <h2 className="text-2xl font-bold text-primary mb-2">Publication introuvable</h2>
-        <p className="text-gray-500 mb-6">Nous n'avons trouvé aucun document correspondant à cet identifiant.</p>
-        <Link to="/publications" className="text-primary underline font-normal text-sm">
+        <h2 className="text-2xl font-bold text-primary dark:text-secondary mb-2">Publication introuvable</h2>
+        <p className="text-gray-500 dark:text-gray-400 mb-6">Nous n'avons trouvé aucun document correspondant à cet identifiant.</p>
+        <Link to="/publications" className="text-primary dark:text-secondary underline font-normal text-sm">
           ← Retour aux publications
         </Link>
       </div>
@@ -103,31 +110,30 @@ export default function PublicationViewer() {
 
   // RENDU NORMAL DE LA PAGE DE VISUALISATION
   return (
-    <article className="bg-white pb-20">
+    <article className="bg-white dark:bg-zinc-950 pb-20 transition-colors duration-300">
       
-      {/* En-tête simple avec Titre (Calqué sur le style ActualiteDetail) */}
-      <div className="container-custom py-12 border-b border-gray-100">
-        <Link to="/publications" className="text-primary font-normal mb-4 inline-block hover:underline">
+      {/* En-tête simple avec Titre */}
+      <div className="container-custom py-12 border-b border-gray-100 dark:border-zinc-900">
+        <Link to="/publications" className="text-primary dark:text-secondary font-normal mb-4 inline-block hover:underline">
           ← Retour aux publications
         </Link>
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
+        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
           {pub.title}
         </h1>
         <div className="flex items-center gap-4 mt-4">
-          <span className="text-xs font-normal uppercase tracking-widest text-primary bg-primary/10 px-3 py-1.5 rounded-full">
+          <span className="text-xs font-normal uppercase tracking-widest text-primary dark:text-secondary bg-primary/10 dark:bg-[#182A19]/35 px-3 py-1.5 rounded-full">
             {pub.type}
           </span>
-          <span className="text-gray-300">|</span>
-          {/* Correction de pub.periode en pub.date pour l'affichage de la date */}
-          <span className="text-gray-500 font-semibold">{pub.date}</span>
+          <span className="text-gray-300 dark:text-zinc-700">|</span>
+          <span className="text-gray-500 dark:text-gray-400 font-semibold">{pub.date}</span>
         </div>
       </div>
 
-      {/* Contenu et cadre de lecture de 850px */}
+      {/* Contenu et cadre de lecture */}
       <div className="container-custom mt-8">
         <div className="flex flex-col items-center">
           
-          <p className="text-gray-600 text-sm mb-8 leading-relaxed max-w-3xl text-center">
+          <p className="text-gray-600 dark:text-gray-300 text-sm mb-8 leading-relaxed max-w-3xl text-center">
             Ce document de l'AEBC est mis à votre disposition pour le suivi et la mise en œuvre des politiques environnementales dans le Bassin du Congo.
           </p>
 
@@ -135,18 +141,18 @@ export default function PublicationViewer() {
           {pub.fileUrl && !pub.fileUrl.includes("[LIEN") ? (
             <div className="w-full flex flex-col items-center gap-8">
               
-              {/* Bouton ouvrir en plein écran / Télécharger (Style normal, non gras) */}
+              {/* Bouton ouvrir en plein écran / Télécharger */}
               <a 
                 href={pub.fileUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="inline-block px-8 py-3.5 bg-primary text-white rounded-lg text-xs font-normal uppercase tracking-widest hover:bg-primary/90 transition shadow-md"
+                className="inline-block px-8 py-3.5 bg-primary dark:bg-secondary text-white dark:text-dark rounded-lg text-xs font-normal uppercase tracking-widest hover:bg-primary-light dark:hover:bg-secondary/90 transition shadow-md"
               >
                 Ouvrir le document PDF
               </a>
 
-              {/* Cadre de lecture de hauteur agrandie à 850px et repositionné */}
-              <div className="w-full h-[850px] border border-gray-200 rounded-2xl overflow-hidden shadow-inner bg-gray-50 mt-4">
+              {/* Cadre de lecture (Fonds adouci en dark:bg-zinc-900 et contour visible dark:border-zinc-850) */}
+              <div className="w-full h-[850px] border border-gray-200 dark:border-zinc-800 rounded-2xl overflow-hidden shadow-inner bg-gray-50 dark:bg-zinc-900 mt-4">
                 <iframe
                   src={`${pub.fileUrl}#toolbar=1`}
                   title={pub.title}
@@ -156,8 +162,8 @@ export default function PublicationViewer() {
 
             </div>
           ) : (
-            // Message si le fichier PDF n'est pas encore lié (Bouton retour propre)
-            <div className="bg-amber-50 border border-amber-200 text-amber-800 px-6 py-4 rounded-xl text-sm max-w-lg mx-auto text-center">
+            // Message si le fichier PDF n'est pas encore lié (Bouton retour propre avec mode sombre)
+            <div className="bg-amber-50 border border-amber-200 text-amber-800 dark:bg-amber-950/20 dark:border-amber-900/50 dark:text-amber-300 px-6 py-4 rounded-xl text-sm max-w-lg mx-auto text-center">
               Le fichier PDF de cette publication n'est pas encore configuré en téléchargement.
             </div>
           )}

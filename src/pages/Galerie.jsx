@@ -240,7 +240,7 @@ export default function Galerie() {
   }, [activeCategory, images, videos])
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white dark:bg-zinc-950 min-h-screen transition-colors duration-300">
 
       {/* BANNIÈRE */}
       <div
@@ -249,35 +249,59 @@ export default function Galerie() {
       >
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative container-custom">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg uppercase tracking-tighter">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             Galerie
           </h1>
           <p className="text-white text-lg leading-relaxed max-w-3xl drop-shadow opacity-90">
-            Retrouvez l'ensemble des ressources visuelles et audiovisuelles de l'AEBC dans le Bassin du Congo.
+            Explorez les ressources visuelles et audiovisuelles illustrant les actions menées dans le Bassin du Congo : photos de terrain, séquences de sensibilisation et contenus témoignant de l’engagement environnemental de la région.
           </p>
         </div>
       </div>
 
       {/* FILTRES - HAUTEUR ADAPTÉE À 62PX ET 78PX POUR ÉLIMINER L'ESPACE SUBPIXEL */}
-      <section className="py-6 bg-white border-b border-gray-100 sticky top-[62px] md:top-[78px] z-40 shadow-sm">
-        <div className="container-custom text-center">
+      <section className="py-6 bg-white dark:bg-zinc-950 border-b border-gray-100 dark:border-zinc-900 sticky top-[62px] md:top-[78px] z-40 shadow-sm transition-colors duration-300">
+        <div className="container-custom">
           
-          {/* LA PETITE BARRE PEAUFINÉE */}
-          <div className="inline-flex bg-slate-100/90 p-1.5 rounded-[20px] border border-slate-200/50 flex-wrap justify-center gap-1.5">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-6 py-2.5 rounded-[14px] text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${
-                  activeCategory === cat.id 
-                  ? "bg-white text-[#305c31] shadow-[0_4px_10px_rgba(0,0,0,0.08),_0_1px_3px_rgba(0,0,0,0.04)]" 
-                  : "text-slate-500 hover:text-slate-800 hover:bg-white/40"
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
+          {/* CONTENEUR DÉFILANT SUR MOBILE (flex-nowrap sur mobile, wrap sur desktop) */}
+          <div className="w-full overflow-x-auto pb-3 md:pb-0 scrollbar-visible text-center">
+            <div className="inline-flex md:flex bg-slate-100/90 dark:bg-zinc-900 p-1.5 rounded-[20px] border border-slate-200/50 dark:border-zinc-800/80 flex-nowrap md:flex-wrap justify-start md:justify-center gap-1.5 min-w-max md:min-w-0 mx-auto">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`px-6 py-2.5 rounded-[14px] text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${
+                    activeCategory === cat.id 
+                    ? "bg-white dark:bg-zinc-800 text-[#305c31] dark:text-secondary border-slate-200 dark:border-zinc-700/80 shadow-[0_4px_10px_rgba(0,0,0,0.08),_0_1px_3px_rgba(0,0,0,0.04)]" 
+                    : "text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-gray-200 hover:bg-white/40 dark:hover:bg-zinc-800/40 border-transparent dark:border-zinc-800/60 dark:hover:border-zinc-700"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
           </div>
+
+          {/* STYLE INJECTÉ POUR FORCER L'AFFICHAGE DE LA BARRE DE DÉFILEMENT SUR MOBILE */}
+          <style dangerouslySetInnerHTML={{__html: `
+            .scrollbar-visible::-webkit-scrollbar {
+              height: 5px;
+            }
+            .scrollbar-visible::-webkit-scrollbar-track {
+              background: transparent;
+            }
+            .scrollbar-visible::-webkit-scrollbar-thumb {
+              background-color: rgba(0, 0, 0, 0.15);
+              border-radius: 10px;
+            }
+            .dark .scrollbar-visible::-webkit-scrollbar-thumb {
+              background-color: rgba(255, 255, 255, 0.25); /* Très visible en mode sombre */
+            }
+            @media (min-width: 768px) {
+              .scrollbar-visible::-webkit-scrollbar {
+                display: none;
+              }
+            }
+          `}} />
 
         </div>
       </section>
@@ -285,7 +309,7 @@ export default function Galerie() {
       <div className="py-16">
         <div className="container-custom">
           {loading ? (
-            <div className="text-center py-20 text-gray-400 font-bold uppercase text-[10px] tracking-widest animate-pulse">
+            <div className="text-center py-20 text-gray-400 dark:text-gray-500 font-bold uppercase text-[10px] tracking-widest animate-pulse">
               Chargement de la médiathèque...
             </div>
           ) : (
@@ -294,13 +318,13 @@ export default function Galerie() {
               {/* 1. SECTION VIDÉOS */}
               {(activeCategory === "Tous" || activeCategory === "Vidéos") && filteredContent.videos.length > 0 && (
                 <section>
-                  <h2 className="text-[11px] font-black text-[#305c31] uppercase tracking-[0.3em] mb-10 flex items-center gap-4">
-                    Vidéos <span className="flex-grow h-px bg-gray-100"></span>
+                  <h2 className="text-[11px] font-black text-[#305c31] dark:text-secondary uppercase tracking-[0.3em] mb-10 flex items-center gap-4">
+                    Vidéos <span className="flex-grow h-px bg-gray-100 dark:bg-zinc-900"></span>
                   </h2>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     {filteredContent.videos.map(video => (
-                      <div key={video.id} className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-gray-50 p-6 flex flex-col">
+                      <div key={video.id} className="border border-gray-200 dark:border-zinc-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 bg-gray-50 dark:bg-zinc-900 p-6 flex flex-col">
 
                         <div className="relative w-full h-[400px] bg-black rounded-lg overflow-hidden mb-5 shadow-inner">
                           <UniversalVideoPlayer
@@ -311,13 +335,13 @@ export default function Galerie() {
                           />
                         </div>
 
-                        <h3 className="text-xl font-bold text-gray-900 mb-1 leading-tight">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1 leading-tight">
                           {video.title}
                         </h3>
-                        <span className="text-[10px] text-[#305c31] font-black uppercase tracking-widest">
+                        <span className="text-[10px] text-[#305c31] dark:text-secondary font-black uppercase tracking-widest">
                           Médiathèque AEBC
                         </span>
-                        <p className="text-gray-600 text-sm leading-relaxed mt-4 line-clamp-3 italic">
+                        <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mt-4 line-clamp-3 italic">
                           {video.description || "Visionnez nos interventions et reportages sur la préservation de l'environnement."}
                         </p>
                       </div>
@@ -333,13 +357,13 @@ export default function Galerie() {
                   {/* Espèces prioritaires */}
                   <section>
                     <div className="max-w-3xl mx-auto text-center mb-16">
-                      <span className="text-[11px] font-black text-[#305c31] uppercase tracking-[0.3em]">
+                      <span className="text-[11px] font-black text-[#305c31] dark:text-secondary uppercase tracking-[0.3em]">
                         Biodiversité Exceptionnelle
                       </span>
-                      <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mt-2 mb-4 leading-tight tracking-tight">
+                      <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mt-2 mb-4 leading-tight tracking-tight">
                         Espèces prioritaires du Bassin du Congo
                       </h2>
-                      <p className="text-gray-600 text-base leading-relaxed">
+                      <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">
                         Espèces menacées, emblématiques ou vulnérables, jouant un rôle écologique majeur dans le Bassin du Congo.
                       </p>
                     </div>
@@ -348,11 +372,11 @@ export default function Galerie() {
                       {ESPECES_PRIORITAIRES.map((item, idx) => (
                         <div 
                           key={item.id} 
-                          className={`flex flex-col md:flex-row ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''} gap-8 md:gap-12 items-center bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm`}
+                          className={`flex flex-col md:flex-row ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''} gap-8 md:gap-12 items-center bg-gray-50 dark:bg-zinc-900 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm`}
                         >
                           {/* Image fixe sans zoom au survol */}
                           <div 
-                            className="w-full md:w-1/2 aspect-[4/3] rounded-xl overflow-hidden cursor-pointer relative group shadow-sm bg-gray-200"
+                            className="w-full md:w-1/2 aspect-[4/3] rounded-xl overflow-hidden cursor-pointer relative group shadow-sm bg-gray-200 dark:bg-zinc-950"
                             onClick={() => setSelectedImage({ imageUrl: item.imageUrl, title: item.title, description: item.description })}
                           >
                             <img 
@@ -367,18 +391,18 @@ export default function Galerie() {
 
                           {/* Texte */}
                           <div className="w-full md:w-1/2 space-y-4">
-                            <span className="inline-block px-3 py-1 bg-[#305c31]/10 text-[#305c31] text-[10px] font-bold uppercase tracking-wider rounded-full">
+                            <span className="inline-block px-3 py-1 bg-[#305c31]/10 dark:bg-secondary/20 text-[#305c31] dark:text-secondary text-[10px] font-bold uppercase tracking-wider rounded-full">
                               {item.badge}
                             </span>
-                            <h3 className="text-2xl font-bold text-gray-900 leading-tight">
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
                               {item.title}
                             </h3>
-                            <p className="text-gray-600 text-base leading-relaxed">
+                            <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">
                               {item.description}
                             </p>
                             <button 
                               onClick={() => setSelectedImage({ imageUrl: item.imageUrl, title: item.title, description: item.description })}
-                              className="mt-2 px-5 py-2.5 bg-[#305c31] text-white hover:bg-[#254826] rounded-xl text-[10px] font-black uppercase tracking-widest transition shadow-sm"
+                              className="mt-2 px-5 py-2.5 bg-[#305c31] dark:bg-secondary text-white dark:text-dark hover:bg-[#254826] dark:hover:bg-secondary/90 rounded-xl text-[10px] font-black uppercase tracking-widest transition shadow-sm"
                             >
                               Agrandir la photo
                             </button>
@@ -391,13 +415,13 @@ export default function Galerie() {
                   {/* Espaces prioritaires */}
                   <section>
                     <div className="max-w-3xl mx-auto text-center mb-16">
-                      <span className="text-[11px] font-black text-[#305c31] uppercase tracking-[0.3em]">
+                      <span className="text-[11px] font-black text-[#305c31] dark:text-secondary uppercase tracking-[0.3em]">
                         Patrimoine Naturel de l'Afrique
                       </span>
-                      <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mt-2 mb-4 leading-tight tracking-tight">
+                      <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mt-2 mb-4 leading-tight tracking-tight">
                         Espaces prioritaires du Bassin du Congo
                       </h2>
-                      <p className="text-gray-600 text-base leading-relaxed">
+                      <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">
                         Zones naturelles à protéger absolument : parcs nationaux, réserves, forêts primaires et paysages écologiques critiques.
                       </p>
                     </div>
@@ -406,11 +430,11 @@ export default function Galerie() {
                       {ESPACES_PRIORITAIRES.map((item, idx) => (
                         <div 
                           key={item.id} 
-                          className={`flex flex-col md:flex-row ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''} gap-8 md:gap-12 items-center bg-gray-50 p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm`}
+                          className={`flex flex-col md:flex-row ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''} gap-8 md:gap-12 items-center bg-gray-50 dark:bg-zinc-900 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm`}
                         >
                           {/* Image fixe sans zoom au survol */}
                           <div 
-                            className="w-full md:w-1/2 aspect-[4/3] rounded-xl overflow-hidden cursor-pointer relative group shadow-sm bg-gray-200"
+                            className="w-full md:w-1/2 aspect-[4/3] rounded-xl overflow-hidden cursor-pointer relative group shadow-sm bg-gray-200 dark:bg-zinc-950"
                             onClick={() => setSelectedImage({ imageUrl: item.imageUrl, title: item.title, description: item.description })}
                           >
                             <img 
@@ -425,18 +449,18 @@ export default function Galerie() {
 
                           {/* Texte */}
                           <div className="w-full md:w-1/2 space-y-4">
-                            <span className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-[10px] font-bold uppercase tracking-wider rounded-full border border-blue-100">
+                            <span className="inline-block px-3 py-1 bg-blue-50 dark:bg-blue-950/30 text-blue-800 dark:text-blue-300 text-[10px] font-bold uppercase tracking-wider rounded-full border border-blue-100 dark:border-blue-900/40">
                               {item.badge}
                             </span>
-                            <h3 className="text-2xl font-bold text-gray-900 leading-tight">
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
                               {item.title}
                             </h3>
-                            <p className="text-gray-600 text-base leading-relaxed">
+                            <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed">
                               {item.description}
                             </p>
                             <button 
                               onClick={() => setSelectedImage({ imageUrl: item.imageUrl, title: item.title, description: item.description })}
-                              className="mt-2 px-5 py-2.5 bg-[#305c31] text-white hover:bg-[#254826] rounded-xl text-[10px] font-black uppercase tracking-widest transition shadow-sm"
+                              className="mt-2 px-5 py-2.5 bg-[#305c31] dark:bg-secondary text-white dark:text-dark hover:bg-[#254826] dark:hover:bg-secondary/90 rounded-xl text-[10px] font-black uppercase tracking-widest transition shadow-sm"
                             >
                               Agrandir la photo
                             </button>
@@ -449,20 +473,23 @@ export default function Galerie() {
                 </div>
               )}
 
-              {/* 3. SECTION PHOTOS CLASSIQUES DE L'ASSOCIATION */}
+              {/* 3. SECTION PHOTOS CLASSIQUES DE L'ASSOCIATION (Restructurée en style alternatif) */}
               {(activeCategory === "Tous" || (activeCategory !== "Vidéos" && activeCategory !== "Photos")) && filteredContent.images.length > 0 && (
                 <section>
-                  <h2 className="text-[11px] font-black text-[#305c31] uppercase tracking-[0.3em] mb-10 flex items-center gap-4">
-                    {activeCategory === "Tous" ? "Photothèque de l'association" : "Photothèque"} <span className="flex-grow h-px bg-gray-100"></span>
+                  <h2 className="text-[11px] font-black text-[#305c31] dark:text-secondary uppercase tracking-[0.3em] mb-10 flex items-center gap-4">
+                    {activeCategory === "Tous" ? "Photothèque de l'association" : "Photothèque"} <span className="flex-grow h-px bg-gray-100 dark:bg-zinc-900"></span>
                   </h2>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {/* Rendu sous forme de liste à mise en page alternée */}
+                  <div className="space-y-16">
                     {filteredContent.images.map((img, idx) => (
-                      <div key={idx} className="border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition bg-gray-50 p-6 flex flex-col">
-
+                      <div 
+                        key={img.id || idx} 
+                        className={`flex flex-col md:flex-row ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''} gap-8 md:gap-12 items-center bg-gray-50 dark:bg-zinc-900 p-6 md:p-8 rounded-2xl border border-gray-100 dark:border-zinc-800 shadow-sm`}
+                      >
                         {/* Image fixe sans zoom au survol */}
                         <div 
-                          className="w-full aspect-video bg-gray-200 rounded-lg overflow-hidden mb-4 cursor-pointer relative group"
+                          className="w-full md:w-1/2 aspect-[4/3] rounded-xl overflow-hidden cursor-pointer relative group shadow-sm bg-gray-200 dark:bg-zinc-950"
                           onClick={() => setSelectedImage(img)}
                         >
                           <img 
@@ -475,18 +502,24 @@ export default function Galerie() {
                           </div>
                         </div>
 
-                        <h3 className="text-lg font-bold text-gray-900 mb-1 line-clamp-2">{img.title}</h3>
-                        <span className="text-[10px] text-[#305c31] font-black uppercase tracking-widest">{img.category || "Actions"}</span>
-                        <p className="text-gray-600 text-sm leading-relaxed mt-3 mb-6 flex-grow line-clamp-3 italic">
-                          {img.description || "Ressource visuelle de l'AEBC."}
-                        </p>
-
-                        <button 
-                          onClick={() => setSelectedImage(img)}
-                          className="w-full py-2 bg-[#305c31] text-white rounded-lg text-xs font-bold uppercase tracking-widest hover:opacity-90 transition"
-                        >
-                          Agrandir la photo
-                        </button>
+                        {/* Texte */}
+                        <div className="w-full md:w-1/2 space-y-4">
+                          <span className="inline-block px-3 py-1 bg-[#305c31]/10 dark:bg-secondary/20 text-[#305c31] dark:text-secondary text-[10px] font-bold uppercase tracking-wider rounded-full">
+                            {img.category || "Actions"}
+                          </span>
+                          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
+                            {img.title}
+                          </h3>
+                          <p className="text-gray-600 dark:text-gray-300 text-base leading-relaxed italic">
+                            {img.description || "Ressource visuelle de l'AEBC."}
+                          </p>
+                          <button 
+                            onClick={() => setSelectedImage(img)}
+                            className="mt-2 px-5 py-2.5 bg-[#305c31] dark:bg-secondary text-white dark:text-dark hover:bg-[#254826] dark:hover:bg-secondary/90 rounded-xl text-[10px] font-black uppercase tracking-widest transition shadow-sm w-full sm:w-auto"
+                          >
+                            Agrandir la photo
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
