@@ -6,10 +6,10 @@ export default function ActualiteDetail() {
   const { id } = useParams()
   const actu = actualites.find((a) => a.id === Number(id))
 
-  // Rendu si l'actualité n'est pas trouvée (avec compatibilité mode sombre)
+  // Rendu si l'actualité n'est pas trouvée
   if (!actu) {
     return (
-      <div className="container-custom py-16 text-center">
+      <div className="container-custom py-16 text-center bg-white dark:bg-zinc-950 min-h-screen">
         <h2 className="text-2xl font-bold text-primary dark:text-secondary">Actualité introuvable</h2>
         <Link to="/actualites" className="text-primary dark:text-secondary underline mt-4 inline-block">
           Retour aux actualités
@@ -32,16 +32,16 @@ export default function ActualiteDetail() {
         <p className="text-primary dark:text-secondary font-semibold mt-4">{actu.date}</p>
       </div>
 
-      {/* Image Large - Cadre fixe avec arrière-plan immersif flouté */}
+      {/* Image Large - Cadre fixe avec arrière-plan flouté */}
       <div className="container-custom">
         <div className="relative w-full h-[300px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg bg-black dark:border dark:border-zinc-800 flex items-center justify-center">
-          {/* Arrière-plan flouté qui remplit la case */}
+          {/* Arrière-plan flouté */}
           <div 
             className="absolute inset-0 bg-cover bg-center blur-xl opacity-40 scale-110 pointer-events-none"
             style={{ backgroundImage: `url(${actu.image})` }}
           ></div>
           
-          {/* Image principale visible en entier */}
+          {/* Image principale */}
           <img
             src={actu.image}
             alt={actu.titre}
@@ -50,13 +50,17 @@ export default function ActualiteDetail() {
         </div>
       </div>
 
-      {/* Contenu de l'article */}
+      {/* Contenu de l'article enveloppé pour un confort de lecture optimal */}
       <div className="container-custom mt-10">
         <div className="max-w-4xl mx-auto">
-          {/* text-gray-700 s'adapte à dark:text-gray-300 pour un confort de lecture optimal */}
-          <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-            {actu.contenu}
+          
+          {/* Enveloppe de lecture douce reprenant le fond des cartes */}
+          <div className="bg-gray-50 dark:bg-[#122527] border border-gray-200 dark:border-[#1d3a3d] rounded-2xl p-8 md:p-12 shadow-sm transition-colors duration-300">
+            <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
+              {actu.contenu}
+            </div>
           </div>
+          
         </div>
       </div>
     </article>

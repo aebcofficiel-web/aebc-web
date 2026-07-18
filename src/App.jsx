@@ -18,8 +18,6 @@ import PublicationViewer from "./pages/PublicationViewer";
 import Contact from "./pages/Contact";
 import NonTrouve from "./pages/NonTrouve";
 import Don from "./pages/Don";
-import DonMTN from "./pages/DonMTN";
-import DonAirtel from "./pages/DonAirtel";
 import DevenirBenevole from "./pages/DevenirBenevole";
 import DevenirPartenaire from "./pages/DevenirPartenaire";
 import NotreMission from "./pages/NotreMission";
@@ -31,7 +29,6 @@ function App() {
       <ScrollToTop />
 
       <Routes>
-        {/* Toutes les pages ci-dessous, y compris le lecteur de PDF, partagent le menu normal du site */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Accueil />} />
           <Route path="/a-propos" element={<APropos />} />
@@ -42,11 +39,9 @@ function App() {
           <Route path="/projets/:id" element={<ProjetDetail />} />
           <Route path="/galerie" element={<Galerie />} />
           <Route path="/publications" element={<Publications />} />
-          <Route path="/publication/view/:id" element={<PublicationViewer />} /> {/* Route ré-intégrée ici */}
+          <Route path="/publication/view/:id" element={<PublicationViewer />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/don" element={<Don />} />
-          <Route path="/don-mtn" element={<DonMTN />} />
-          <Route path="/don-airtel" element={<DonAirtel />} />
           <Route path="/benevolat" element={<DevenirBenevole />} />
           <Route path="/partenaires" element={<DevenirPartenaire />} />
           <Route path="/notre-mission" element={<NotreMission />} />

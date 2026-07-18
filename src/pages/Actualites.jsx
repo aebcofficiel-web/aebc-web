@@ -70,7 +70,7 @@ export default function Actualites() {
             {currentActualites.map((actu) => (
               <div
                 key={actu.id}
-                // Contours fins de la même famille de couleur que les cartes (dark:border-[#1d3a3d]) sur fond #122527
+                // Contours fins assortis (dark:border-[#1d3a3d]) sur fond #122527
                 className="border border-gray-200 dark:border-[#1d3a3d] rounded-xl shadow-sm hover:shadow-md transition-all duration-300 bg-gray-50 dark:bg-[#122527] p-6 flex flex-col"
               >
                 <div className="w-full h-48 rounded-lg overflow-hidden mb-4 bg-gray-200 dark:bg-zinc-950">

@@ -84,7 +84,7 @@ export default function APropos() {
           <span className="inline-block px-3 py-1 bg-secondary/20 border border-secondary text-secondary text-xs font-black uppercase tracking-widest rounded-full mb-3">
             Qui sommes-nous ?
           </span>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight drop-shadow-lg">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             À propos de l’AEBC
           </h1>
           <p className="text-gray-200 text-lg leading-relaxed max-w-3xl drop-shadow opacity-95">

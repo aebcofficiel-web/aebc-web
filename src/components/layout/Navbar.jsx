@@ -140,35 +140,34 @@ const Navbar = () => {
             Faire un don
           </Link>
 
-          {/* Bouton de changement de thème */}
+          {/* Bouton de changement de thème (Vert pâle bg-primary/10, contour vert border-primary/30 et icône verte text-primary en mode clair) */}
           <button
             onClick={() => {
               setDarkMode(!darkMode);
               setLangDropdownOpen(false);
             }}
-            className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-primary-dark dark:hover:bg-primary text-gray-700 dark:text-secondary transition-all"
+            className="p-2 rounded-xl border border-primary/30 dark:border-transparent bg-primary/10 hover:bg-primary/20 dark:bg-primary-dark dark:hover:bg-primary text-primary dark:text-secondary transition-all"
             aria-label="Changer de thème"
             title={darkMode ? "Activer le mode clair" : "Activer le mode sombre"}
           >
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
-          {/* SÉLECTEUR DE LANGUE PERSONNALISÉ (Ordinateur) */}
+          {/* SÉLECTEUR DE LANGUE PERSONNALISÉ (Ordinateur - Vert pâle bg-primary/10, contour vert border-primary/30 et texte/icône verts text-primary en mode clair) */}
           <div className="relative">
             <button
               onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-              className="flex items-center gap-2 p-2 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-primary-dark dark:hover:bg-primary text-gray-700 dark:text-secondary transition-all"
+              className="flex items-center gap-2 p-2 rounded-xl border border-primary/30 dark:border-transparent bg-primary/10 hover:bg-primary/20 dark:bg-primary-dark dark:hover:bg-primary text-primary dark:text-secondary transition-all"
               aria-label="Sélecteur de langue"
               title="Traduire le site"
             >
               <Globe size={20} />
-              {/* Traduction esthétique des labels en-tête (iw est affiché sous le sigle "he", zh-CN sous le sigle "zh") */}
               <span className="text-[11px] font-black uppercase tracking-wider">
                 {activeLangObj.code === "iw" ? "he" : activeLangObj.code === "zh-CN" ? "zh" : activeLangObj.code}
               </span>
             </button>
 
-            {/* Menu déroulant des langues (Avec défilement sécurisé pour 24 langues) */}
+            {/* Menu déroulant des langues */}
             {langDropdownOpen && (
               <div className="absolute right-0 mt-2 w-44 max-h-80 overflow-y-auto bg-white dark:bg-dark border border-gray-100 dark:border-[#1b3b1c] rounded-xl shadow-xl z-50 py-1">
                 {languages.map((lang) => (
@@ -217,7 +216,7 @@ const Navbar = () => {
             </NavLink>
           ))}
 
-          {/* SÉLECTEUR DE LANGUE (Version Mobile - Grille de 24 boutons avec limite de hauteur de 240px) */}
+          {/* SÉLECTEUR DE LANGUE (Version Mobile) */}
           <div className="pt-2 border-t border-gray-100 dark:border-primary-dark">
             <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 font-black uppercase tracking-widest">Traduire le site</p>
             <div className="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-1">
@@ -241,7 +240,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Séparateur pour mobile - Thème */}
+          {/* Séparateur pour mobile - Thème (Vert pâle bg-primary/10, contour vert border-primary/30 et icône/texte verts text-primary en mode clair) */}
           <div className="pt-2 flex items-center justify-between border-t border-gray-100 dark:border-[#1b3b1c]">
             <span className="text-xs text-gray-500 dark:text-gray-400 font-black uppercase tracking-widest">Mode sombre</span>
             <button
@@ -249,7 +248,7 @@ const Navbar = () => {
                 setDarkMode(!darkMode);
                 setIsOpen(false);
               }}
-              className="p-2 rounded-xl bg-gray-100 dark:bg-primary-dark text-gray-700 dark:text-secondary"
+              className="p-2 rounded-xl border border-primary/30 dark:border-transparent bg-primary/10 dark:bg-primary-dark text-primary dark:text-secondary"
               aria-label="Changer de thème"
               title={darkMode ? "Activer le mode clair" : "Activer le mode sombre"}
             >
